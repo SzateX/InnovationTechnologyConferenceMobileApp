@@ -38,14 +38,17 @@
         },
         created()
         {
-            //this.getLectures();
+            this.getLectures();
         },
         methods:
             {
-                //getLectures(){
-                //    const lectureService = new LectureService();
-                //    lectureService.getLecturesAfterDate(new Date()).then((res)=>this.lectures = res);
-                //}
+                getLectures(){
+                    const lectureService = new LectureService();
+                    lectureService.getLecturesAfterDate(new Date()).then((res)=>{
+                        console.log(res);
+                        this.lectures = res;
+                    });
+                }
             }
     }
 </script>

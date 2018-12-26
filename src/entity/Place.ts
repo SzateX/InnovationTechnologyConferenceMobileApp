@@ -1,19 +1,19 @@
 import {Entity, PrimaryColumn, Column, OneToMany} from 'typeorm';
 import { Lecture } from './Lecture';
 
-@Entity('Place')
+// @Entity('Place')
 export class Place {
-    @PrimaryColumn()
+    // @PrimaryColumn()
     public id: number;
 
-    @Column()
+    // @Column()
     public buildingName: string;
 
-    @Column({nullable: true})
+    // @Column({nullable: true})
     public roomName: string;
 
-    @OneToMany((type) => Lecture, (lecture) => lecture.place)
-    public lectures: Lecture[];
+    // @OneToMany((type) => Lecture, (lecture) => lecture.place)
+    // public lectures: Lecture[];
     constructor(json?: any) {
         if (typeof json === 'undefined') {
             return;

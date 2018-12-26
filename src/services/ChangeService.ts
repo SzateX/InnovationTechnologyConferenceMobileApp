@@ -8,10 +8,11 @@ import {CompanyService} from '@/services/CompanyService';
 import {SpeakerService} from '@/services/SpeakerService';
 import {LectureService} from '@/services/LectureService';
 import {NewsService} from '@/services/NewsService';
+import {nSQL} from 'nano-sql';
 
 export class ChangeService {
     public async getLastChangeId(): Promise<number> {
-        const connection: Connection = await DbService.getOrCreateConnection();
+        /*const connection: Connection = await DbService.getOrCreateConnection();
         const changeRepository: Repository<Change> = connection.getRepository(Change);
         const numberOfChanges: number = await changeRepository.count();
         if (numberOfChanges) {
@@ -20,11 +21,16 @@ export class ChangeService {
                 return change.id;
             }
         }
-        return 0;
+        return 0;*/
+       const result = await nSQL('Change').query('select', ['MAX(id) AS maxId']).exec();
+       if (result[0].maxId) {
+           return result[0].maxId;
+       }
+       return 0;
     }
     public async parseChangesFromJsonArray(changes: any) {
-        const connection: Connection = await DbService.getOrCreateConnection();
-        const changeRepository: Repository<Change> = connection.getRepository(Change);
+        //const connection: Connection = await DbService.getOrCreateConnection();
+        //const changeRepository: Repository<Change> = connection.getRepository(Change);
         for (const change of changes) {
             switch (change.model) {
                 case 'Place':
@@ -49,7 +55,8 @@ export class ChangeService {
                     await new NewsService().performActionOnChange(change);
                     break;
             }
-            await changeRepository.save(new Change(change));
+            await nSQL('Change').query('upsert', new Change(change)).exec();
+            //await changeRepository.save(new Change(change));
         }
     }
 }

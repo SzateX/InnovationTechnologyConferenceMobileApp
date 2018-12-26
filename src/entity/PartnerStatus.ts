@@ -1,16 +1,16 @@
 import {Entity, PrimaryColumn, Column, OneToMany} from 'typeorm';
 import {Company} from './Company';
 
-@Entity('PartnerStatus')
+// @Entity('PartnerStatus')
 export class PartnerStatus {
-    @PrimaryColumn()
+    // @PrimaryColumn()
     public id: number;
 
-    @Column()
+    // @Column()
     public name: string;
 
-    @OneToMany((type) => Company, (company) => company.status)
-    public companies: Company[];
+    // @OneToMany((type) => Company, (company) => company.status)
+    // public companies: Company[];
     constructor(json?: any) {
         if (typeof json === 'undefined') {
             return;

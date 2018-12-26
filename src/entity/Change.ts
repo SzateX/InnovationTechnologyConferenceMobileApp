@@ -1,17 +1,17 @@
 import { Entity, PrimaryColumn, Column } from 'typeorm';
 
-@Entity('Change')
+// @Entity('Change')
 export class Change {
-    @PrimaryColumn()
+    // @PrimaryColumn()
     public id: number;
 
-    @Column()
+    // @Column()
     public model: string;
 
-    @Column()
+    // @Column()
     public typeOfChange: string;
 
-    @Column()
+    // @Column()
     public content: string;
     constructor(json?: any) {
         if (typeof json === 'undefined') {

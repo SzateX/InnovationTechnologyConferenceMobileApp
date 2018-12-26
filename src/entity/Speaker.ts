@@ -3,36 +3,36 @@ import { Picture } from './Picture';
 import { Company } from './Company';
 import { Lecture } from './Lecture';
 
-@Entity('Speaker')
+// @Entity('Speaker')
 export class Speaker {
-    @PrimaryColumn()
+    // @PrimaryColumn()
     public id: number;
 
-    @Column()
+    // @Column()
     public name: string;
 
-    @Column()
+    // @Column()
     public surname: string;
 
-    @Column({nullable: true})
+    // @Column({nullable: true})
     public description: string;
 
-    @Column({type: 'int', nullable: true})
-    public pictureId: number;
+    // @Column({type: 'int', nullable: true})
+    public picture: number;
 
-    @Column({type: 'int', nullable: true})
-    public companyId: number;
+    // @Column({type: 'int', nullable: true})
+    public company: number;
 
-    @ManyToOne((type) => Picture, (picture) => picture.speakers, {nullable: true})
-    @JoinColumn({name: 'pictureId'})
-    public picture: Picture;
+    //@ManyToOne((type) => Picture, (picture) => picture.speakers, {nullable: true})
+    //@JoinColumn({name: 'pictureId'})
+    //public picture: Picture;
 
-    @ManyToOne((type) => Company, (company) => company.speakers, {nullable: true})
-    @JoinColumn({name: 'companyId'})
-    public company: Company;
+    //@ManyToOne((type) => Company, (company) => company.speakers, {nullable: true})
+    //@JoinColumn({name: 'companyId'})
+    //public company: Company;
 
-    @ManyToMany((type) => Lecture, (lecture) => lecture.speakers)
-    public lectures: Lecture[];
+    //@ManyToMany((type) => Lecture, (lecture) => lecture.speakers)
+    //public lectures: Lecture[];
     constructor(json?: any) {
         if (typeof json === 'undefined') {
             return;
@@ -41,8 +41,8 @@ export class Speaker {
         this.name = json.name;
         this.surname = json.surname;
         this.description = json.description;
-        this.pictureId = json.picture_id;
-        this.companyId = json.company_id;
+        this.picture = json.picture_id;
+        this.company = json.company_id;
     }
 
     public update(json: any) {
@@ -50,7 +50,7 @@ export class Speaker {
         this.name = json.name;
         this.surname = json.surname;
         this.description = json.description;
-        this.pictureId = json.picture_id;
-        this.companyId = json.company_id;
+        this.picture = json.picture_id;
+        this.company = json.company_id;
     }
 }
