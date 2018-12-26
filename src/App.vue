@@ -114,13 +114,13 @@ export default {
               .startInit("7352b8f7-e82c-449e-b402-a760d22871ef")
               .endInit();
       }
-      const restService = new RestService();
-      const changeService = new ChangeService();
-      changeService.getLastChangeId().then(lastId => {
-          restService.getDataFromApi(lastId).then(objects => {
-              changeService.parseChangesFromJsonArray(objects).then(() => {});
-          });
-      });
+      //const restService = new RestService();
+      //const changeService = new ChangeService();
+      //changeService.getLastChangeId().then(lastId => {
+      //    restService.getDataFromApi(lastId).then(objects => {
+      //        changeService.parseChangesFromJsonArray(objects).then(() => {});
+      //    });
+      //});
 
       //console.log(await restService.getDataFromApi(lastId));
 

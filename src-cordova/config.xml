@@ -7,7 +7,7 @@
     <author email="dev@cordova.apache.org" href="http://cordova.io">
         Apache Cordova Team
     </author>
-    <content src="http://192.168.43.228:8081" />
+    <content src="index.html" />
     <allow-navigation href="http://192.168.43.228:8081" />
     <plugin name="cordova-plugin-whitelist" spec="1" />
     <access origin="*" />
@@ -26,6 +26,7 @@
     </platform>
     <plugin name="cordova-sqlite-storage" spec="2.5.2" />
     <plugin name="onesignal-cordova-plugin" spec="2.4.6" />
+    <plugin name="cordova-plugin-nano-sqlite" spec="1.2.0" />
     <engine name="android" spec="^7.1.4" />
     <engine name="ios" spec="^4.5.5" />
     <engine name="browser" spec="^5.0.4" />
