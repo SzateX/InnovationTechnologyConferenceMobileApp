@@ -14,6 +14,13 @@ export class NewsService {
             .limit(3)
             .exec();
     }
+    public async getNewses(): Promise<any[]>{
+        return await nSQL('News').query('select')
+            .orderBy({
+                publishDate: 'desc',
+            })
+            .exec();
+    }
     public async performActionOnChange(change: any) {
         switch (change.type_of_change) {
             case 'create':
