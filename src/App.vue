@@ -85,7 +85,7 @@
       >
           <v-toolbar>
               <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-              <v-toolbar-title>Aktualności</v-toolbar-title>
+              <v-toolbar-title>{{$route.meta.title}}</v-toolbar-title>
           </v-toolbar>
       </v-footer>
   </v-app>
@@ -116,20 +116,6 @@ export default {
               .endInit();
       }
 
-      let dupa = {
-          id: 1,
-          model: 'dupa',
-          typeOfChange: 'create',
-          content: 'ddddd',
-      };
-
-      let dupa2 = {
-          id: 2,
-          model: 'dupa2',
-          typeOfChange: 'create',
-          content: 'cccccc',
-      };
-
       const restService = new RestService();
       const changeService = new ChangeService();
       await nSQL("Change").query("upsert", dupa).exec();
@@ -138,31 +124,6 @@ export default {
       //console.log(lastId);
       const objects = await restService.getDataFromApi(lastId);
       await changeService.parseChangesFromJsonArray(objects);
-
-
-      //changeService.getLastChangeId().then((result) => {
-      //   console.log(result);
-      //});
-
-      //console.log(await nSQL("Change").query("select").exec());
-
-      //console.log(await nSQL("Company").query("select").exec());
-      //console.log(await nSQL("Lecture").query("select").exec());
-      //console.log(await nSQL("News").query("select").exec());
-      //console.log(await nSQL("PartnerStatus").query("select").exec());
-      //console.log(await nSQL("Picture").query("select").exec());
-      //console.log(await nSQL("Place").query("select").exec());
-      //console.log(await nSQL("Speaker").query("select").exec());
-
-      //console.log(await nSQL("Lecture").query("select").orm(['speakers']).exec());
-
-      //changeService.getLastChangeId().then(lastId => {
-      //    restService.getDataFromApi(lastId).then(objects => {
-      //        changeService.parseChangesFromJsonArray(objects).then(() => {});
-      //    });
-      //});
-
-      //console.log(await restService.getDataFromApi(lastId));
 
   }
 }
