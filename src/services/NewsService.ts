@@ -5,6 +5,15 @@ import {Picture} from '@/entity/Picture';
 import {nSQL} from 'nano-sql';
 
 export class NewsService {
+    public async getNewsesForHomePage(date: Date): Promise<any[]> {
+        return await nSQL('News').query('select')
+            .where(['publishDate', '<', date.toISOString()])
+            .orderBy({
+                publishDate: 'desc',
+            })
+            .limit(3)
+            .exec();
+    }
     public async performActionOnChange(change: any) {
         switch (change.type_of_change) {
             case 'create':

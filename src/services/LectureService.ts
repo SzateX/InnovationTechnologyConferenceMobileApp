@@ -5,13 +5,13 @@ import {Picture} from '@/entity/Picture';
 import {nSQL} from 'nano-sql';
 
 export class LectureService {
-    public async getLecturesAfterDate(date: Date): Promise<any[]> {
+    public async getLecturesAfterDateHomePage(date: Date): Promise<any[]> {
         return await nSQL('Lecture').query('select')
             .orm(['place'])
             .where(['beginTime', '>', date.toISOString()])
             .orderBy({beginTime: 'asc'})
             .limit(2)
-            .exec();//
+            .exec();
     }
 
     public async performActionOnChange(change: any) {

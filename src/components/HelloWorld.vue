@@ -1,8 +1,8 @@
 <template>
   <v-container>
     <v-layout
-      text-xs-center
-      wrap
+            text-xs-center
+            wrap
     >
       <v-flex xs12>
         <v-img
