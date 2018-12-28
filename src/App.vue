@@ -118,8 +118,6 @@ export default {
 
       const restService = new RestService();
       const changeService = new ChangeService();
-      await nSQL("Change").query("upsert", dupa).exec();
-      await nSQL("Change").query("upsert", dupa2).exec();
       const lastId = await changeService.getLastChangeId();
       //console.log(lastId);
       const objects = await restService.getDataFromApi(lastId);
