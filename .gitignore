@@ -232,3 +232,5 @@ fabric.properties
 .idea/*
 
 www/*
+src-cordova/config.xml
+src-cordova/package.json
