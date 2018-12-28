@@ -97,6 +97,7 @@ import {RestService} from './services/RestService';
 import {ChangeService} from './services/ChangeService';
 import {DbService} from "./services/DbService";
 import {createConnection} from 'typeorm';
+import {nSQL} from "nano-sql";
 
 export default {
   name: 'App',
@@ -108,19 +109,58 @@ export default {
       drawer: false,
     }
   },
-  created() {
+  async created() {
       if (window.plugins) {
           window.plugins.OneSignal
               .startInit("7352b8f7-e82c-449e-b402-a760d22871ef")
               .endInit();
       }
+
+      let dupa = {
+          id: 1,
+          model: 'dupa',
+          typeOfChange: 'create',
+          content: 'ddddd',
+      };
+
+      let dupa2 = {
+          id: 2,
+          model: 'dupa2',
+          typeOfChange: 'create',
+          content: 'cccccc',
+      };
+
       const restService = new RestService();
       const changeService = new ChangeService();
-      changeService.getLastChangeId().then(lastId => {
-          restService.getDataFromApi(lastId).then(objects => {
-              changeService.parseChangesFromJsonArray(objects).then(() => {});
-          });
-      });
+      await nSQL("Change").query("upsert", dupa).exec();
+      await nSQL("Change").query("upsert", dupa2).exec();
+      const lastId = await changeService.getLastChangeId();
+      //console.log(lastId);
+      const objects = await restService.getDataFromApi(lastId);
+      await changeService.parseChangesFromJsonArray(objects);
+
+
+      //changeService.getLastChangeId().then((result) => {
+      //   console.log(result);
+      //});
+
+      //console.log(await nSQL("Change").query("select").exec());
+
+      //console.log(await nSQL("Company").query("select").exec());
+      //console.log(await nSQL("Lecture").query("select").exec());
+      //console.log(await nSQL("News").query("select").exec());
+      //console.log(await nSQL("PartnerStatus").query("select").exec());
+      //console.log(await nSQL("Picture").query("select").exec());
+      //console.log(await nSQL("Place").query("select").exec());
+      //console.log(await nSQL("Speaker").query("select").exec());
+
+      //console.log(await nSQL("Lecture").query("select").orm(['speakers']).exec());
+
+      //changeService.getLastChangeId().then(lastId => {
+      //    restService.getDataFromApi(lastId).then(objects => {
+      //        changeService.parseChangesFromJsonArray(objects).then(() => {});
+      //    });
+      //});
 
       //console.log(await restService.getDataFromApi(lastId));
 

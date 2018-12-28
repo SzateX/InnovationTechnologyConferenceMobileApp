@@ -1,72 +1,55 @@
 <template>
     <div>
-    <v-layout row wrap v-for="lecture in lectures">
-        <v-flex xs12>
-            <v-card color="blue-grey darken-2" class="white--text">
-                <v-card-title primary-title class="new-padding">
-                    <div style="width: 100%;">
-                        <h3 class="text-truncate">{{lecture.title}}</h3>
-                    </div>
-                </v-card-title>
-                <v-divider light></v-divider>
-                <v-card-actions>
-                    <div class="place-and-date">
-                        <v-icon class="white--text">mdi-map-marker</v-icon>
-                        <a class="white--text">{{lecture.place.buildingName}}{{lecture.place.roomName}}</a>
-                    </div>
-                    <div class="place-and-date">
-                        <v-icon class="white--text">mdi-clock-outline</v-icon>
-                        <a class="white--text">{{lecture.beginTime}}</a>
-                    </div>
-                </v-card-actions>
-            </v-card>
-        </v-flex>
-    </v-layout>
+        <logo></logo>
+        <h3>Nadchodzące Prelekcje</h3>
+        <lecture-list :lecture-array="lectures"></lecture-list>
+        <h3>Aktualności</h3>
+        <news-list :news-array="newses"></news-list>
     </div>
 </template>
 
 <script>
     import {LectureService} from '../services/LectureService';
-    import {Lecture} from "../entity/Lecture";
-
+    import {NewsService} from "../services/NewsService";
+    import LectureList from "./Elements/LectureList";
+    import Logo from "./Elements/Logo"
+    import NewsList from "./Elements/NewsList"
     export default {
         name: "Home",
+        components: {
+          LectureList, Logo, NewsList
+        },
         data(){
             return {
                 lectures: [],
+                newses: [],
             };
         },
         created()
         {
             this.getLectures();
+            this.getNewses();
         },
         methods:
             {
                 getLectures(){
                     const lectureService = new LectureService();
-                    lectureService.getLecturesAfterDate(new Date()).then((res)=>this.lectures = res);
+                    lectureService.getLecturesAfterDateHomePage(new Date()).then((res)=>{
+                        console.log(res);
+                        this.lectures = res;
+                    });
+                },
+                getNewses(){
+                    const newsService = new NewsService();
+                    newsService.getNewsesForHomePage(new Date()).then((res)=>{
+                        console.log(res);
+                        this.newses = res;
+                    });
                 }
             }
     }
 </script>
 
 <style scoped>
-    .place-and-date
-    {
-        padding: 0 16px;
-        display: flex;
-        align-content: center;
-        align-items: center;
-    }
-    .elipsis
-    {
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        overflow: hidden;
-    }
-    .new-padding
-    {
-        padding: 16px 16px 8px;
-    }
 
 </style>

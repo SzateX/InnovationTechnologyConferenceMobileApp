@@ -1,8 +1,19 @@
 import {Connection, Repository} from 'typeorm';
 import {DbService} from '@/services/DbService';
 import {News} from '@/entity/News';
+import {Picture} from '@/entity/Picture';
+import {nSQL} from 'nano-sql';
 
 export class NewsService {
+    public async getNewsesForHomePage(date: Date): Promise<any[]> {
+        return await nSQL('News').query('select')
+            .where(['publishDate', '<', date.toISOString()])
+            .orderBy({
+                publishDate: 'desc',
+            })
+            .limit(3)
+            .exec();
+    }
     public async performActionOnChange(change: any) {
         switch (change.type_of_change) {
             case 'create':
@@ -17,29 +28,15 @@ export class NewsService {
         }
     }
     private async createModelWithChange(change: any) {
-        const connection: Connection = await DbService.getOrCreateConnection();
-        const repository: Repository<News> = await connection.getRepository(News);
         const json = JSON.parse(change.content);
         const obj = new News(json);
-        await repository.save(obj);
+        await nSQL('News').query('upsert', obj).exec();
     }
     private async updateModelWithChange(change: any) {
-        const connection: Connection = await DbService.getOrCreateConnection();
-        const repository: Repository<News> = await connection.getRepository(News);
-        const json = JSON.parse(change.content);
-        const obj = await repository.findOne(json.id);
-        if (obj) {
-            obj.update(json);
-            await repository.save(obj);
-        }
+        await this.createModelWithChange(change);
     }
     private async deleteModelWithChange(change: any) {
-        const connection: Connection = await DbService.getOrCreateConnection();
-        const repository: Repository<News> = await connection.getRepository(News);
         const json = JSON.parse(change.content);
-        const obj = await repository.findOne(json.id);
-        if (obj) {
-            await repository.remove(obj);
-        }
+        await nSQL('News').query('delete').where(['id', '=', json.id]).exec();
     }
 }

@@ -1,29 +1,29 @@
 import { Entity, PrimaryColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
 import { Picture } from './Picture';
 
-@Entity('News')
+// @Entity('News')
 export class News {
-    @PrimaryColumn()
+    // @PrimaryColumn()
     public id: number;
 
-    @Column()
+    // @Column()
     public content: string;
 
-    @Column()
+    // @Column()
     public title: string;
 
-    @Column()
+    // @Column()
     public creationDate: Date;
 
-    @Column()
+    // @Column()
     public publishDate: Date;
 
-    @Column({type: 'int', nullable: true})
-    public pictureId: number;
+    // @Column({type: 'int', nullable: true})
+    public picture: number;
 
-    @ManyToOne((type) => Picture, (p) => p.newses, {nullable: true})
-    @JoinColumn({name: 'pictureId'})
-    public picture: Picture;
+    // @ManyToOne((type) => Picture, (p) => p.newses, {nullable: true})
+    // @JoinColumn({name: 'pictureId'})
+    // public picture: Picture;
     constructor(json?: any) {
         if (typeof json === 'undefined') {
             return;
@@ -33,7 +33,7 @@ export class News {
         this.publishDate = new Date(json.publish_date);
         this.content = json.content;
         this.title = json.title;
-        this.pictureId = json.picture_id;
+        this.picture = json.picture_id;
     }
 
     public update(json: any) {
@@ -42,6 +42,6 @@ export class News {
         this.publishDate = new Date(json.publish_date);
         this.content = json.content;
         this.title = json.title;
-        this.pictureId = json.picture_id;
+        this.picture = json.picture_id;
     }
 }

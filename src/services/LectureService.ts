@@ -1,16 +1,17 @@
 import {Connection, Repository} from 'typeorm';
 import {DbService} from '@/services/DbService';
 import {Lecture} from '@/entity/Lecture';
+import {Picture} from '@/entity/Picture';
+import {nSQL} from 'nano-sql';
 
 export class LectureService {
-    public async getLecturesAfterDate(date: Date): Promise<Lecture[]> {
-        const connection: Connection = await DbService.getOrCreateConnection();
-        const repository: Repository<Lecture> = await connection.getRepository(Lecture);
-        return await repository.createQueryBuilder('lecture')
-            .innerJoinAndSelect('lecture.place', 'place')
-            .where('lecture.beginTime >= :begin', {begin: date.toISOString()})
-            .orderBy('lecture.beginTime')
-            .getMany();
+    public async getLecturesAfterDateHomePage(date: Date): Promise<any[]> {
+        return await nSQL('Lecture').query('select')
+            .orm(['place'])
+            .where(['beginTime', '>', date.toISOString()])
+            .orderBy({beginTime: 'asc'})
+            .limit(2)
+            .exec();
     }
 
     public async performActionOnChange(change: any) {
@@ -27,30 +28,16 @@ export class LectureService {
         }
     }
     private async createModelWithChange(change: any) {
-        const connection: Connection = await DbService.getOrCreateConnection();
-        const repository: Repository<Lecture> = await connection.getRepository(Lecture);
         const json = JSON.parse(change.content);
         const obj = new Lecture();
         await obj.update(json);
-        await repository.save(obj);
+        await nSQL('Lecture').query('upsert', obj).exec();
     }
     private async updateModelWithChange(change: any) {
-        const connection: Connection = await DbService.getOrCreateConnection();
-        const repository: Repository<Lecture> = await connection.getRepository(Lecture);
-        const json = JSON.parse(change.content);
-        const obj = await repository.findOne(json.id);
-        if (obj) {
-            obj.update(json);
-            await repository.save(obj);
-        }
+        await this.createModelWithChange(change);
     }
     private async deleteModelWithChange(change: any) {
-        const connection: Connection = await DbService.getOrCreateConnection();
-        const repository: Repository<Lecture> = await connection.getRepository(Lecture);
         const json = JSON.parse(change.content);
-        const obj = await repository.findOne(json.id);
-        if (obj) {
-            await repository.remove(obj);
-        }
+        await nSQL('Lecture').query('delete').where(['id', '=', json.id]).exec();
     }
 }

@@ -3,22 +3,22 @@ import { Company } from './Company';
 import { Speaker } from './Speaker';
 import { News } from './News';
 
-@Entity('Picture')
+//@Entity('Picture')
 export class Picture {
-    @PrimaryColumn()
+    //@PrimaryColumn()
     public id: number;
 
-    @Column()
+    //@Column()
     public source: string;
 
-    @OneToMany((type) => Company, (company) => company.picture)
-    public companies: Company[];
+    //@OneToMany((type) => Company, (company) => company.picture)
+    //public companies: Company[];
 
-    @OneToMany((type) => Speaker, (speaker) => speaker.picture)
-    public speakers: Speaker[];
+    //@OneToMany((type) => Speaker, (speaker) => speaker.picture)
+    //public speakers: Speaker[];
 
-    @OneToMany((type) => News, (news) => news.picture)
-    public newses: News[];
+    //@OneToMany((type) => News, (news) => news.picture)
+    //public newses: News[];
     constructor(json?: any) {
         if (typeof json === 'undefined') {
             return;

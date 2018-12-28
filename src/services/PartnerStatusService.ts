@@ -1,6 +1,8 @@
 import {Connection, Repository} from 'typeorm';
 import {DbService} from '@/services/DbService';
 import {PartnerStatus} from '@/entity/PartnerStatus';
+import {Picture} from '@/entity/Picture';
+import {nSQL} from 'nano-sql';
 
 export class PartnerStatusService {
     public async performActionOnChange(change: any) {
@@ -17,29 +19,15 @@ export class PartnerStatusService {
         }
     }
     private async createModelWithChange(change: any) {
-        const connection: Connection = await DbService.getOrCreateConnection();
-        const repository: Repository<PartnerStatus> = await connection.getRepository(PartnerStatus);
         const json = JSON.parse(change.content);
         const obj = new PartnerStatus(json);
-        await repository.save(obj);
+        await nSQL('PartnerStatus').query('upsert', obj).exec();
     }
     private async updateModelWithChange(change: any) {
-        const connection: Connection = await DbService.getOrCreateConnection();
-        const repository: Repository<PartnerStatus> = await connection.getRepository(PartnerStatus);
-        const json = JSON.parse(change.content);
-        const obj = await repository.findOne(json.id);
-        if (obj) {
-            obj.update(json);
-            await repository.save(obj);
-        }
+        await this.createModelWithChange(change);
     }
     private async deleteModelWithChange(change: any) {
-        const connection: Connection = await DbService.getOrCreateConnection();
-        const repository: Repository<PartnerStatus> = await connection.getRepository(PartnerStatus);
         const json = JSON.parse(change.content);
-        const obj = await repository.findOne(json.id);
-        if (obj) {
-            await repository.remove(obj);
-        }
+        await nSQL('PartnerStatus').query('delete').where(['id', '=', json.id]).exec();
     }
 }
