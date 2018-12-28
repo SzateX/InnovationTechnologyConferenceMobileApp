@@ -3,8 +3,10 @@
         <logo></logo>
         <h3>Nadchodzące Prelekcje</h3>
         <lecture-list :lecture-array="lectures"></lecture-list>
+        <router-link tag="h3" :to="{name: 'agenda'}" class="text-xs-right">Więcej &#9654;</router-link>
         <h3>Aktualności</h3>
         <news-list :news-array="newses"></news-list>
+        <router-link tag="h3" :to="{name: 'blog'}" class="text-xs-right">Więcej &#9654;</router-link>
     </div>
 </template>
 
