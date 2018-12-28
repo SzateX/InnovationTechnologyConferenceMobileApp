@@ -13,7 +13,12 @@ export class LectureService {
             .limit(2)
             .exec();
     }
-
+    public async getLectures(): Promise<any[]> {
+        return await nSQL('Lecture').query('select')
+            .orm(['place'])
+            .orderBy({beginTime: 'asc'})
+            .exec();
+    }
     public async performActionOnChange(change: any) {
         switch (change.type_of_change) {
             case 'create':
