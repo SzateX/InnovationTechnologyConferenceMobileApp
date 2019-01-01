@@ -7,15 +7,17 @@ import {nSQL} from 'nano-sql';
 export class NewsService {
     public async getNewsesForHomePage(date: Date): Promise<any[]> {
         return await nSQL('News').query('select')
+            .orm(['picture'])
             .where(['publishDate', '<', date.toISOString()])
             .orderBy({
                 publishDate: 'desc',
             })
-            .limit(3)
+            .limit(1)
             .exec();
     }
     public async getNewses(): Promise<any[]>{
         return await nSQL('News').query('select')
+            .orm(['picture'])
             .orderBy({
                 publishDate: 'desc',
             })

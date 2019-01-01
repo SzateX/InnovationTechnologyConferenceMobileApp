@@ -69,8 +69,8 @@
     </v-navigation-drawer>
 
     <v-content>
-        <v-container fluid>
-            <main>
+        <v-container fluid class="int-background">
+            <main style="height: 100%">
                 <v-fade-transition mode="out-in">
                     <router-view></router-view>
                 </v-fade-transition>
@@ -126,3 +126,13 @@ export default {
   }
 }
 </script>
+
+<style>
+    .int-background{
+        background: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 1) 277px), url("assets/bg.png") repeat-y;
+        background-size: 634px ;
+        background-position: center top;
+        margin-bottom: 15px;
+        height: 100%;
+    }
+</style>

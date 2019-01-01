@@ -9,6 +9,8 @@ import 'reflect-metadata';
 import { getMode } from 'cordova-plugin-nano-sqlite/lib/sqlite-adapter';
 import { nSQL } from 'nano-sql';
 
+import 'leaflet/dist/leaflet.css';
+
 import routes from './routes';
 
 Vue.config.productionTip = false;

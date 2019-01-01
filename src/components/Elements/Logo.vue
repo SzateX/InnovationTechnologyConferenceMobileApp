@@ -2,7 +2,6 @@
     <v-layout
             text-xs-center
             wrap
-            class="int-background"
     >
         <v-flex xs12>
             <v-img
@@ -23,9 +22,4 @@
 </script>
 
 <style scoped>
-    .int-background{
-        background: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 1)), url("../../assets/bg.png") no-repeat left top;
-        background-size: cover;
-        margin-bottom: 15px;
-    }
 </style>

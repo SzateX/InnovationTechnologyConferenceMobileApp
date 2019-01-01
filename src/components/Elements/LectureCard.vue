@@ -9,12 +9,12 @@
             <v-divider light></v-divider>
             <v-card-actions>
                 <div class="place-and-date">
-                    <v-icon class="white--text">mdi-map-marker</v-icon>
+                    <v-icon class="white--text">mdi-map-marker-outline</v-icon>
                     <a class="white--text">{{lecture.place.buildingName}}{{lecture.place.roomName}}</a>
                 </div>
                 <div class="place-and-date">
                     <v-icon class="white--text">mdi-clock-outline</v-icon>
-                    <a class="white--text">{{beginTimeFormatted}}</a>
+                    <a class="white--text">	&nbsp;{{beginTimeFormatted}}</a>
                 </div>
             </v-card-actions>
         </v-card>

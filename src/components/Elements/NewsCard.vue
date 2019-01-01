@@ -1,6 +1,10 @@
 <template>
     <v-flex xs12>
         <v-card color="blue-grey darken-2" class="white--text bottom-margin">
+            <v-img
+                    :src="imgUrl"
+                    aspect-ratio="2"
+            ></v-img>
             <v-card-title primary-title class="new-padding">
                 <div style="width: 100%;">
                     <div style="width: 80%; float: left;">
@@ -18,7 +22,12 @@
 <script>
     export default {
         name: "NewsCard",
-        props: ["news"]
+        props: ["news"],
+        computed: {
+            imgUrl: function() {
+                return 'http://145.239.89.244:5000' + this.news.picture.source;
+            }
+        }
     }
 </script>
 

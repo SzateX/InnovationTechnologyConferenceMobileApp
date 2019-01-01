@@ -1,14 +1,18 @@
 <template>
-    <lecture-list :lecture-array="lectures"></lecture-list>
+    <div class="bg">
+        <lecture-list :lecture-array="lectures"></lecture-list>
+    </div>
 </template>
 
 <script>
     import {LectureService} from "../services/LectureService";
-    import LectureList from "./Elements/LectureList"
+    import LectureList from "./Elements/LectureList";
+    import Logo from "./Elements/Logo";
+
     export default {
         name: "Agenda",
         components: {
-            LectureList
+            LectureList, Logo
         },
         data(){
             return {
