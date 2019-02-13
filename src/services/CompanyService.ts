@@ -1,4 +1,3 @@
-import {Connection, Repository} from 'typeorm';
 import {DbService} from '@/services/DbService';
 import {Company} from '@/entity/Company';
 import {Picture} from '@/entity/Picture';

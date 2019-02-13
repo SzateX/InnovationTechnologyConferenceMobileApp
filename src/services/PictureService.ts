@@ -1,4 +1,3 @@
-import {Connection, Repository} from 'typeorm';
 import {DbService} from '@/services/DbService';
 import {Picture} from '@/entity/Picture';
 import {nSQL} from 'nano-sql';

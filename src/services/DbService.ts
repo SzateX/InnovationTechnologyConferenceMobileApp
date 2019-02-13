@@ -1,10 +1,9 @@
 import {
-    getConnectionManager,
     ConnectionManager,
     ConnectionOptions,
     Connection,
     createConnection,
-    getConnection
+    getConnection,
 } from 'typeorm';
 import {Change} from '@/entity/Change';
 import {Company} from '@/entity/Company';
@@ -15,6 +14,7 @@ import {Picture} from '@/entity/Picture';
 import {Place} from '@/entity/Place';
 import {Speaker} from '@/entity/Speaker';
 import {AlreadyHasActiveConnectionError} from 'typeorm/error/AlreadyHasActiveConnectionError';
+
 export namespace DbService {
     export const options: ConnectionOptions = {
         type: 'cordova',

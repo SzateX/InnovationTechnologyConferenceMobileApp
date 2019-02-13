@@ -1,12 +1,13 @@
 import axios from 'axios';
-
 export class RestService {
-    public async getDataFromApi(lastIdChange: number): Promise<any> {
+    async getDataFromApi(lastIdChange) {
         try {
             const response = await axios.get('http://192.168.1.4:5000/restapi/change/?id=&id__gt=' + lastIdChange);
             return response.data;
-        } catch (e) {
+        }
+        catch (e) {
             alert(e);
         }
     }
 }
+//# sourceMappingURL=RestService.js.map

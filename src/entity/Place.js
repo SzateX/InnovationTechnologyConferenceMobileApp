@@ -1,19 +1,8 @@
-import { Lecture } from './Lecture';
-
 // @Entity('Place')
 export class Place {
-    // @PrimaryColumn()
-    public id: number;
-
-    // @Column()
-    public buildingName: string;
-
-    // @Column({nullable: true})
-    public roomName: string;
-
     // @OneToMany((type) => Lecture, (lecture) => lecture.place)
     // public lectures: Lecture[];
-    constructor(json?: any) {
+    constructor(json) {
         if (typeof json === 'undefined') {
             return;
         }
@@ -21,10 +10,10 @@ export class Place {
         this.buildingName = json.building_name;
         this.roomName = json.room_name;
     }
-
-    public update(json: any) {
+    update(json) {
         this.id = json.id;
         this.buildingName = json.building_name;
         this.roomName = json.room_name;
     }
 }
+//# sourceMappingURL=Place.js.map

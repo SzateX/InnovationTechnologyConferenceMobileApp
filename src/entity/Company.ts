@@ -1,4 +1,3 @@
-import {Entity, PrimaryColumn, Column, ManyToOne, OneToMany, JoinColumn} from 'typeorm';
 import {PartnerStatus} from './PartnerStatus';
 import { Picture } from './Picture';
 import { Speaker } from './Speaker';

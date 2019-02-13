@@ -1,10 +1,7 @@
-import {DbService} from '@/services/DbService';
-import {PartnerStatus} from '@/entity/PartnerStatus';
-import {Picture} from '@/entity/Picture';
+import { PartnerStatus } from '@/entity/PartnerStatus';
 import { nSQL } from 'nano-sql';
-
 export class PartnerStatusService {
-    public async performActionOnChange(change: any) {
+    async performActionOnChange(change) {
         switch (change.type_of_change) {
             case 'create':
                 await this.createModelWithChange(change);
@@ -17,18 +14,17 @@ export class PartnerStatusService {
                 break;
         }
     }
-    public async getStatuses(): Promise<any[]> {
+    async getStatuses() {
         let result = await nSQL('PartnerStatus').query('select')
             .orm([{
                 key: 'companies',
             }])
-            .orderBy({priority: 'asc'})
+            .orderBy({ priority: 'asc' })
             .exec();
         console.log(result);
         for (let status of result) {
             console.log(status);
-            for (let company of status.companies)
-            {
+            for (let company of status.companies) {
                 company['picture'] = (await nSQL('Picture').query('select').where(["id", "=", company.picture]).exec())[0];
             }
         }
@@ -53,16 +49,17 @@ export class PartnerStatusService {
             .orderBy({priority: 'asc'})
             .exec(); */
     }
-    private async createModelWithChange(change: any) {
+    async createModelWithChange(change) {
         const json = JSON.parse(change.content);
         const obj = new PartnerStatus(json);
         await nSQL('PartnerStatus').query('upsert', obj).exec();
     }
-    private async updateModelWithChange(change: any) {
+    async updateModelWithChange(change) {
         await this.createModelWithChange(change);
     }
-    private async deleteModelWithChange(change: any) {
+    async deleteModelWithChange(change) {
         const json = JSON.parse(change.content);
         await nSQL('PartnerStatus').query('delete').where(['id', '=', json.id]).exec();
     }
 }
+//# sourceMappingURL=PartnerStatusService.js.map

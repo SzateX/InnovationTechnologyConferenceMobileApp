@@ -1,17 +1,6 @@
 // @Entity('Change')
 export class Change {
-    // @PrimaryColumn()
-    public id: number;
-
-    // @Column()
-    public model: string;
-
-    // @Column()
-    public typeOfChange: string;
-
-    // @Column()
-    public content: string;
-    constructor(json?: any) {
+    constructor(json) {
         if (typeof json === 'undefined') {
             return;
         }
@@ -20,11 +9,11 @@ export class Change {
         this.model = json.model;
         this.typeOfChange = json.type_of_change;
     }
-
-    public update(json: any) {
+    update(json) {
         this.id = json.id;
         this.content = json.content;
         this.model = json.model;
         this.typeOfChange = json.type_of_change;
     }
 }
+//# sourceMappingURL=Change.js.map

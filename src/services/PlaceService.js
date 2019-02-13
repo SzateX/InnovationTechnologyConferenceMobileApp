@@ -1,9 +1,7 @@
-import {DbService} from '@/services/DbService';
-import {Place} from '@/entity/Place';
-import {nSQL} from 'nano-sql';
-
+import { Place } from '@/entity/Place';
+import { nSQL } from 'nano-sql';
 export class PlaceService {
-    public async performActionOnChange(change: any) {
+    async performActionOnChange(change) {
         switch (change.type_of_change) {
             case 'create':
                 await this.createModelWithChange(change);
@@ -16,16 +14,17 @@ export class PlaceService {
                 break;
         }
     }
-    private async createModelWithChange(change: any) {
+    async createModelWithChange(change) {
         const json = JSON.parse(change.content);
         const obj = new Place(json);
         await nSQL('Place').query('upsert', obj).exec();
     }
-    private async updateModelWithChange(change: any) {
+    async updateModelWithChange(change) {
         await this.createModelWithChange(change);
     }
-    private async deleteModelWithChange(change: any) {
+    async deleteModelWithChange(change) {
         const json = JSON.parse(change.content);
         await nSQL('Place').query('delete').where(['id', '=', json.id]).exec();
     }
 }
+//# sourceMappingURL=PlaceService.js.map

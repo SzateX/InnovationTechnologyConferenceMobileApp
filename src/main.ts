@@ -8,6 +8,10 @@ import Vuetify from 'vuetify';
 import 'reflect-metadata';
 import { getMode } from 'cordova-plugin-nano-sqlite/lib/sqlite-adapter';
 import { nSQL } from 'nano-sql';
+// @ts-ignore
+import VueMapbox from 'vue-mapbox';
+// @ts-ignore
+import Mapbox from 'mapbox-gl';
 
 import 'leaflet/dist/leaflet.css';
 
@@ -18,6 +22,7 @@ Vue.use(Vuetify, {
     iconfont: 'mdi', // 'md' || 'mdi' || 'fa' || 'fa4'
 });
 Vue.use(VueRouter);
+Vue.use(VueMapbox, { mapboxgl: Mapbox });
 
 const router = new VueRouter({
     routes,
@@ -67,6 +72,7 @@ document.addEventListener('deviceready', () => {
         .model([
             {key: 'id', type: 'int', props: ['pk']},
             {key: 'name', type: 'string'},
+            {key: 'priority', type: 'int'},
             {key: 'companies', type: 'Company[]', props: ['ref=>status']},
         ]);
 

@@ -1,4 +1,3 @@
-import HelloWorld from './components/HelloWorld';
 import Home from './components/Home';
 import Agenda from './components/Agenda';
 import Blog from './components/Blog';

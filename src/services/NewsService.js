@@ -1,30 +1,25 @@
-import {DbService} from '@/services/DbService';
-import {News} from '@/entity/News';
-import {Picture} from '@/entity/Picture';
-import {nSQL} from 'nano-sql';
-
+import { News } from '@/entity/News';
+import { nSQL } from 'nano-sql';
 export class NewsService {
-    public async getNewsesForHomePage(date: Date): Promise<any[]> {
+    async getNewsesForHomePage(date) {
         return await nSQL('News').query('select')
             .orm(['picture'])
             .where(['publishDate', '<', date.toISOString()])
             .orderBy({
-                publishDate: 'desc',
-            })
+            publishDate: 'desc',
+        })
             .limit(1)
             .exec();
     }
-
-    public async getNewses(): Promise<any[]> {
+    async getNewses() {
         return await nSQL('News').query('select')
             .orm(['picture'])
             .orderBy({
-                publishDate: 'desc',
-            })
+            publishDate: 'desc',
+        })
             .exec();
     }
-
-    public async performActionOnChange(change: any) {
+    async performActionOnChange(change) {
         switch (change.type_of_change) {
             case 'create':
                 await this.createModelWithChange(change);
@@ -37,19 +32,17 @@ export class NewsService {
                 break;
         }
     }
-
-    private async createModelWithChange(change: any) {
+    async createModelWithChange(change) {
         const json = JSON.parse(change.content);
         const obj = new News(json);
         await nSQL('News').query('upsert', obj).exec();
     }
-
-    private async updateModelWithChange(change: any) {
+    async updateModelWithChange(change) {
         await this.createModelWithChange(change);
     }
-
-    private async deleteModelWithChange(change: any) {
+    async deleteModelWithChange(change) {
         const json = JSON.parse(change.content);
         await nSQL('News').query('delete').where(['id', '=', json.id]).exec();
     }
 }
+//# sourceMappingURL=NewsService.js.map

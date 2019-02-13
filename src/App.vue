@@ -92,18 +92,12 @@
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld'
 import {RestService} from './services/RestService';
 import {ChangeService} from './services/ChangeService';
-import {DbService} from "./services/DbService";
-import {createConnection} from 'typeorm';
-import {nSQL} from "nano-sql";
 
 export default {
   name: 'App',
-  components: {
-    HelloWorld
-  },
+  components: {},
   data () {
     return {
       drawer: false,

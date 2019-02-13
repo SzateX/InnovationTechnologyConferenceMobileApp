@@ -1,16 +1,14 @@
-import {Connection, Repository} from 'typeorm';
-import {Change} from '@/entity/Change';
-import {PlaceService} from '@/services/PlaceService';
-import {PictureService} from '@/services/PictureService';
-import {PartnerStatusService} from '@/services/PartnerStatusService';
-import {CompanyService} from '@/services/CompanyService';
-import {SpeakerService} from '@/services/SpeakerService';
-import {LectureService} from '@/services/LectureService';
-import {NewsService} from '@/services/NewsService';
-import {nSQL} from 'nano-sql';
-
+import { Change } from '@/entity/Change';
+import { PlaceService } from '@/services/PlaceService';
+import { PictureService } from '@/services/PictureService';
+import { PartnerStatusService } from '@/services/PartnerStatusService';
+import { CompanyService } from '@/services/CompanyService';
+import { SpeakerService } from '@/services/SpeakerService';
+import { LectureService } from '@/services/LectureService';
+import { NewsService } from '@/services/NewsService';
+import { nSQL } from 'nano-sql';
 export class ChangeService {
-    public async getLastChangeId(): Promise<number> {
+    async getLastChangeId() {
         /*const connection: Connection = await DbService.getOrCreateConnection();
         const changeRepository: Repository<Change> = connection.getRepository(Change);
         const numberOfChanges: number = await changeRepository.count();
@@ -27,8 +25,7 @@ export class ChangeService {
         }
         return 0;
     }
-
-    public async parseChangesFromJsonArray(changes: any) {
+    async parseChangesFromJsonArray(changes) {
         // const connection: Connection = await DbService.getOrCreateConnection();
         // const changeRepository: Repository<Change> = connection.getRepository(Change);
         for (const change of changes) {
@@ -60,3 +57,4 @@ export class ChangeService {
         }
     }
 }
+//# sourceMappingURL=ChangeService.js.map

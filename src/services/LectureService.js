@@ -1,24 +1,21 @@
-import {DbService} from '@/services/DbService';
-import {Lecture} from '@/entity/Lecture';
-import {Picture} from '@/entity/Picture';
-import {nSQL} from 'nano-sql';
-
+import { Lecture } from '@/entity/Lecture';
+import { nSQL } from 'nano-sql';
 export class LectureService {
-    public async getLecturesAfterDateHomePage(date: Date): Promise<any[]> {
+    async getLecturesAfterDateHomePage(date) {
         return await nSQL('Lecture').query('select')
             .orm(['place'])
             .where(['beginTime', '>', date.toISOString()])
-            .orderBy({beginTime: 'asc'})
+            .orderBy({ beginTime: 'asc' })
             .limit(2)
             .exec();
     }
-    public async getLectures(): Promise<any[]> {
+    async getLectures() {
         return await nSQL('Lecture').query('select')
             .orm(['place'])
-            .orderBy({beginTime: 'asc'})
+            .orderBy({ beginTime: 'asc' })
             .exec();
     }
-    public async performActionOnChange(change: any) {
+    async performActionOnChange(change) {
         switch (change.type_of_change) {
             case 'create':
                 await this.createModelWithChange(change);
@@ -31,17 +28,18 @@ export class LectureService {
                 break;
         }
     }
-    private async createModelWithChange(change: any) {
+    async createModelWithChange(change) {
         const json = JSON.parse(change.content);
         const obj = new Lecture();
         await obj.update(json);
         await nSQL('Lecture').query('upsert', obj).exec();
     }
-    private async updateModelWithChange(change: any) {
+    async updateModelWithChange(change) {
         await this.createModelWithChange(change);
     }
-    private async deleteModelWithChange(change: any) {
+    async deleteModelWithChange(change) {
         const json = JSON.parse(change.content);
         await nSQL('Lecture').query('delete').where(['id', '=', json.id]).exec();
     }
 }
+//# sourceMappingURL=LectureService.js.map
