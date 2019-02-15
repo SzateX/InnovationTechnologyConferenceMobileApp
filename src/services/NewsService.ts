@@ -23,6 +23,14 @@ export class NewsService {
             })
             .exec();
     }
+    public async getNews(id: number): Promise<any> {
+        const result = await nSQL('News').query('select')
+            .orm(['picture'])
+            .where(['id', '=', id])
+            .exec();
+        console.log(result);
+        return result[0];
+    }
 
     public async performActionOnChange(change: any) {
         switch (change.type_of_change) {

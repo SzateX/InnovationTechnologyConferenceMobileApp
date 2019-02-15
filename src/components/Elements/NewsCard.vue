@@ -1,6 +1,6 @@
 <template>
     <v-flex xs12>
-        <v-card color="blue-grey darken-2" class="white--text bottom-margin">
+        <v-card color="blue-grey darken-2" class="white--text bottom-margin" :to="{name:'news_detail', params: { id: news.id }}">
             <v-img
                     :src="imgUrl"
                     aspect-ratio="2"
@@ -25,7 +25,7 @@
         props: ["news"],
         computed: {
             imgUrl: function() {
-                return 'http://145.239.89.244:5000' + this.news.picture.source;
+                return 'http://192.168.1.4:5000' + this.news.picture.source;
             }
         }
     }

@@ -29,6 +29,7 @@
     "vue": "^2.5.17",
     "vue-class-component": "^6.0.0",
     "vue-mapbox": "^0.1.4",
+    "vue-markdown": "^2.2.4",
     "vue-property-decorator": "^7.0.0",
     "vue-router": "^3.0.2",
     "vue2-leaflet": "^1.2.3",

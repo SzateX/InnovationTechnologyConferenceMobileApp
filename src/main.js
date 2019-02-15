@@ -12,6 +12,8 @@ import { nSQL } from 'nano-sql';
 import VueMapbox from 'vue-mapbox';
 // @ts-ignore
 import Mapbox from 'mapbox-gl';
+// @ts-ignore
+import VueMarkdown from 'vue-markdown';
 import 'leaflet/dist/leaflet.css';
 import routes from './routes';
 Vue.config.productionTip = false;
@@ -20,6 +22,7 @@ Vue.use(Vuetify, {
 });
 Vue.use(VueRouter);
 Vue.use(VueMapbox, { mapboxgl: Mapbox });
+Vue.use(VueMarkdown);
 const router = new VueRouter({
     routes,
 });

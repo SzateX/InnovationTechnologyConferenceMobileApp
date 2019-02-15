@@ -2,7 +2,8 @@ import Home from './components/Home';
 import Agenda from './components/Agenda';
 import Blog from './components/Blog';
 import Partners from './components/Partners';
-import Place from './components/Place'
+import Place from './components/Place';
+import NewsDetail from './components/NewsDetail';
 
 export default [
     {
@@ -20,6 +21,15 @@ export default [
         meta: {
             title: 'Agenda'
         }
+    },
+    {
+        name: 'news_detail',
+        path: '/blog/:id',
+        component: NewsDetail,
+        meta: {
+            title: "Blog"
+        },
+        props: true,
     },
     {
         name: 'blog',
@@ -44,5 +54,5 @@ export default [
         meta: {
             title: 'Miejsce'
         }
-    }
+    },
 ];
