@@ -29,6 +29,7 @@
         },
         created()
         {
+            console.log("HOME");
             this.getLectures();
             this.getNewses();
         },

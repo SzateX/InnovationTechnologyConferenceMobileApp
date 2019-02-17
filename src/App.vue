@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app v-if:="loaded">
     <v-navigation-drawer
             v-model="drawer"
             app
@@ -101,9 +101,10 @@ export default {
   data () {
     return {
       drawer: false,
+        loaded: false,
     }
   },
-  async created() {
+  created() {
       if (window.plugins) {
           window.plugins.OneSignal
               .startInit("7352b8f7-e82c-449e-b402-a760d22871ef")
@@ -112,10 +113,18 @@ export default {
 
       const restService = new RestService();
       const changeService = new ChangeService();
-      const lastId = await changeService.getLastChangeId();
+      changeService.getLastChangeId().then((lastId)=>{
+          restService.getDataFromApi(lastId).then((objects)=>{
+              changeService.parseChangesFromJsonArray(objects).then(()=>{
+                  console.log("ŚRODEK");
+                this.loaded = true;
+              })
+          })
+      })
+      /*const lastId = await changeService.getLastChangeId();
       //console.log(lastId);
       const objects = await restService.getDataFromApi(lastId);
-      await changeService.parseChangesFromJsonArray(objects);
+      await changeService.parseChangesFromJsonArray(objects);*/
 
   }
 }
