@@ -28,12 +28,11 @@
 </template>
 
 <script>
-    import {LMap, LTileLayer, LMarker} from 'vue2-leaflet';
     import { MglMap, MglMarker, MglPopup } from "vue-mapbox";
 
     export default {
         name: "Place",
-        components: { LMap, LTileLayer, LMarker, MglMap, MglMarker, MglPopup},
+        components: {MglMap, MglMarker, MglPopup},
         data() {
             return {
                 url: 'http://{s}.tile.osm.org/{z}/{x}/{y}.png',

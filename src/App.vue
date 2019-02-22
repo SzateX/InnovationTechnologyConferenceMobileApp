@@ -1,5 +1,5 @@
 <template>
-  <v-app v-if:="loaded">
+  <v-app v-if="loaded">
     <v-navigation-drawer
             v-model="drawer"
             app
@@ -89,6 +89,9 @@
           </v-toolbar>
       </v-footer>
   </v-app>
+    <div v-else>
+        Ładowanie danych...
+    </div>
 </template>
 
 <script>
@@ -102,30 +105,64 @@ export default {
     return {
       drawer: false,
         loaded: false,
+        timerId: null,
     }
   },
   created() {
+      const restService = new RestService();
+      const changeService = new ChangeService();
+
       if (window.plugins) {
           window.plugins.OneSignal
               .startInit("7352b8f7-e82c-449e-b402-a760d22871ef")
+              .inFocusDisplaying(window.plugins.OneSignal.OSInFocusDisplayOption.Notification)
               .endInit();
       }
 
-      const restService = new RestService();
-      const changeService = new ChangeService();
-      changeService.getLastChangeId().then((lastId)=>{
-          restService.getDataFromApi(lastId).then((objects)=>{
-              changeService.parseChangesFromJsonArray(objects).then(()=>{
-                  console.log("ŚRODEK");
-                this.loaded = true;
-              })
-          })
-      })
-      /*const lastId = await changeService.getLastChangeId();
-      //console.log(lastId);
-      const objects = await restService.getDataFromApi(lastId);
-      await changeService.parseChangesFromJsonArray(objects);*/
+      document.addEventListener("offline", function(){
+          alert("Brak połączenia. Nie wykorzystujesz pełnej funkcjonalności aplikacji.");
+          clearInterval(this.timerId);
+          timerId = null;
+      }, false);
 
+      document.addEventListener("online", function () {
+          changeService.getLastChangeId().then((lastId)=>{
+              restService.getDataFromApi(lastId).then((objects)=> {
+                  changeService.parseChangesFromJsonArray(objects).then(() => {
+                      this.loaded = true;
+                      this.timerId = setInterval(function () {
+                          changeService.getLastChangeId().then((lastId) => {
+                              restService.getDataFromApi(lastId).then((objects) => {
+                                  changeService.parseChangesFromJsonArray(objects).then(() => {
+                                  })})});
+                      }, 30000);
+                  })
+              })
+          });
+      }, false);
+
+      let networkState = navigator['connection'].type;
+      if(networkState)
+      {
+          if(networkState !== 'none')
+          {
+              changeService.getLastChangeId().then((lastId)=>{
+                  restService.getDataFromApi(lastId).then((objects)=> {
+                      changeService.parseChangesFromJsonArray(objects).then(() => {
+                          this.loaded = true;
+                          this.timerId = setInterval(function () {
+                              changeService.getLastChangeId().then((lastId) => {
+                                  restService.getDataFromApi(lastId).then((objects) => {
+                                      changeService.parseChangesFromJsonArray(objects).then(() => {
+                                      })})});
+                          }, 30000);
+                      })
+                  })
+              });
+              return;
+          }
+      }
+      alert("Brak połączenia. Nie wykorzystujesz pełnej funkcjonalności aplikacji.");
   }
 }
 </script>

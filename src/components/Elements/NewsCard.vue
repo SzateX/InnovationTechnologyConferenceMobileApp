@@ -1,10 +1,12 @@
 <template>
     <v-flex xs12>
         <v-card color="blue-grey darken-2" class="white--text bottom-margin" :to="{name:'news_detail', params: { id: news.id }}">
+            <div v-if="imgUrl !== undefined">
             <v-img
                     :src="imgUrl"
                     aspect-ratio="2"
             ></v-img>
+            </div>
             <v-card-title primary-title class="new-padding">
                 <div style="width: 100%;">
                     <div style="width: 80%; float: left;">
@@ -25,7 +27,9 @@
         props: ["news"],
         computed: {
             imgUrl: function() {
-                return 'http://192.168.1.4:5000' + this.news.picture.source;
+                if(this.news.picture)
+                    return 'http://192.168.1.4:5000' + this.news.picture.source;
+                return undefined;
             }
         }
     }

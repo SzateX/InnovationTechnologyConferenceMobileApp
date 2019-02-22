@@ -4,7 +4,12 @@
     <v-container fluid grid-list-sm>
         <v-layout row wrap>
             <v-flex v-for="partner in partners" xs4>
-                <img :src="`http://192.168.1.4:5000${partner.picture.source}`" class="image" alt="lorem" width="100%" height="100%">
+                <div v-if="partner.picture">
+                    <img :src="`http://192.168.1.4:5000${partner.picture.source}`" class="image" alt="lorem" width="100%" height="100%">
+                </div>
+                <div v-else style="text-align: center">
+                    <span>{{partner.name}}</span>
+                </div>
             </v-flex>
         </v-layout>
     </v-container>

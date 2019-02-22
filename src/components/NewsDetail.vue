@@ -8,7 +8,9 @@
         <h1 v-if="news.title !== undefined" style="text-align: center">
             {{news.title}}
         </h1>
-        <vue-markdown :source="news.content"></vue-markdown>
+        <div v-if="news.content">
+            <vue-markdown :source="news.content"></vue-markdown>
+        </div>
     </div>
 </template>
 

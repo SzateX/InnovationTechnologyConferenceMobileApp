@@ -15,8 +15,6 @@ import Mapbox from 'mapbox-gl';
 // @ts-ignore
 import VueMarkdown from 'vue-markdown';
 
-import 'leaflet/dist/leaflet.css';
-
 import routes from './routes';
 
 Vue.config.productionTip = false;

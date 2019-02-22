@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="io.sknikod.intapp" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>intapp</name>
+    <name>Innovation Technology Conference</name>
     <description>
         A sample Apache Cordova application that responds to the deviceready event.
     </description>
@@ -29,6 +29,8 @@
     <plugin name="cordova-sqlite-storage" spec="2.5.2" />
     <plugin name="onesignal-cordova-plugin" spec="2.4.6" />
     <plugin name="cordova-plugin-nano-sqlite" spec="1.2.0" />
+    <plugin name="cordova-plugin-network-information" spec="^2.0.1" />
+    <plugin name="cordova-plugin-splashscreen" spec="^5.0.2" />
     <engine name="android" spec="^7.1.4" />
     <engine name="ios" spec="^4.5.5" />
     <engine name="browser" spec="^5.0.4" />

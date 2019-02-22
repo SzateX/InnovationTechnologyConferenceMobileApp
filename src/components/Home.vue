@@ -16,6 +16,7 @@
     import LectureList from "./Elements/LectureList";
     import Logo from "./Elements/Logo"
     import NewsList from "./Elements/NewsList"
+    import {nSQL} from "nano-sql";
     export default {
         name: "Home",
         components: {
@@ -32,6 +33,21 @@
             console.log("HOME");
             this.getLectures();
             this.getNewses();
+            nSQL()
+            .observable(() => nSQL("Lecture").query("select").emit())
+            .filter((rows, idx) => rows.length > 0)
+            .subscribe((rows, event) => {
+                console.log("EVENT od LECTURE");
+                this.getLectures();
+            });
+
+            nSQL()
+                .observable(() => nSQL("News").query("select").emit())
+                .filter((rows, idx) => rows.length > 0)
+                .subscribe((rows, event) => {
+                    console.log("EVENT od NEWS");
+                    this.getNewses();
+                });
         },
         methods:
             {
