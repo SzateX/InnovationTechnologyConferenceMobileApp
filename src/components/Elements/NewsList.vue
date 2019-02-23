@@ -9,12 +9,12 @@
 <script>
     import NewsCard from './NewsCard';
     export default {
-        name: "NewsList",
-        props: ["newsArray"],
+        name: 'NewsList',
+        props: ['newsArray'],
         components: {
-            NewsCard
-        }
-    }
+            NewsCard,
+        },
+    };
 </script>
 
 <style scoped>

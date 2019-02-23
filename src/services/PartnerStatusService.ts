@@ -1,7 +1,7 @@
 import {DbService} from '@/services/DbService';
 import {PartnerStatus} from '@/entity/PartnerStatus';
 import {Picture} from '@/entity/Picture';
-import { nSQL } from 'nano-sql';
+import {nSQL} from 'nano-sql';
 
 export class PartnerStatusService {
     public async performActionOnChange(change: any) {
@@ -17,19 +17,20 @@ export class PartnerStatusService {
                 break;
         }
     }
+
     public async getStatuses(): Promise<any[]> {
-        let result = await nSQL('PartnerStatus').query('select')
+        const result = await nSQL('PartnerStatus').query('select')
             .orm([{
                 key: 'companies',
             }])
             .orderBy({priority: 'asc'})
             .exec();
         console.log(result);
-        for (let status of result) {
+        for (const status of result) {
             console.log(status);
-            for (let company of status.companies)
-            {
-                company['picture'] = (await nSQL('Picture').query('select').where(["id", "=", company.picture]).exec())[0];
+            for (const company of status.companies) {
+                company.picture = (await nSQL('Picture')
+                    .query('select').where(['id', '=', company.picture]).exec())[0];
             }
         }
         return result;
@@ -53,14 +54,17 @@ export class PartnerStatusService {
             .orderBy({priority: 'asc'})
             .exec(); */
     }
+
     private async createModelWithChange(change: any) {
         const json = JSON.parse(change.content);
         const obj = new PartnerStatus(json);
         await nSQL('PartnerStatus').query('upsert', obj).exec();
     }
+
     private async updateModelWithChange(change: any) {
         await this.createModelWithChange(change);
     }
+
     private async deleteModelWithChange(change: any) {
         const json = JSON.parse(change.content);
         await nSQL('PartnerStatus').query('delete').where(['id', '=', json.id]).exec();

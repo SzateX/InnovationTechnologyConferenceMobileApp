@@ -9,12 +9,12 @@
 <script>
     import LectureCard from './LectureCard';
     export default {
-        name: "LectureList",
+        name: 'LectureList',
         props: ['lectureArray'],
         components: {
-            LectureCard
-        }
-    }
+            LectureCard,
+        },
+    };
 </script>
 
 <style scoped>

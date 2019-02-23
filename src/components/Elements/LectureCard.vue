@@ -23,15 +23,15 @@
 
 <script>
     export default {
-        name: "LectureCard",
+        name: 'LectureCard',
         props: ['lecture'],
         computed: {
-            beginTimeFormatted: function() {
+            beginTimeFormatted() {
                 const dateTime = new Date(this.lecture.beginTime);
                 return dateTime.toLocaleTimeString();
-            }
-        }
-    }
+            },
+        },
+    };
 </script>
 
 <style scoped>

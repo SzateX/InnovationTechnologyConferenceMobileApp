@@ -15,35 +15,34 @@
 </template>
 
 <script>
-    import {NewsService} from "../services/NewsService";
+    import {NewsService} from '../services/NewsService';
     import VueMarkdown from 'vue-markdown';
 
     export default {
-        name: "NewsDetail",
-        props: ["id"],
+        name: 'NewsDetail',
+        props: ['id'],
         components: {
-            VueMarkdown
+            VueMarkdown,
         },
-        data(){
+        data() {
             return {
                 news: {content: ''},
             };
         },
-        created()
-        {
+        created() {
             this.getNews();
         },
-        methods:{
-            getNews(){
+        methods: {
+            getNews() {
                 const newsService = new NewsService();
                 console.log(this.id);
-                newsService.getNews(this.id).then((res)=>{
+                newsService.getNews(this.id).then((res) => {
                     console.log(res);
                     this.news = res;
                 });
-            }
-        }
-    }
+            },
+        },
+    };
 </script>
 
 <style scoped>

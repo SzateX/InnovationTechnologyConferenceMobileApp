@@ -23,16 +23,17 @@
 
 <script>
     export default {
-        name: "NewsCard",
-        props: ["news"],
+        name: 'NewsCard',
+        props: ['news'],
         computed: {
-            imgUrl: function() {
-                if(this.news.picture)
-                    return 'http://192.168.1.4:5000' + this.news.picture.source;
+            imgUrl() {
+                if (this.news.picture) {
+                    return 'http://192.168.1.16:5000' + this.news.picture.source;
+                }
                 return undefined;
-            }
-        }
-    }
+            },
+        },
+    };
 </script>
 
 <style scoped>

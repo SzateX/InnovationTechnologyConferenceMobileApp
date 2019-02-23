@@ -15,17 +15,18 @@ export class PartnerStatusService {
         }
     }
     async getStatuses() {
-        let result = await nSQL('PartnerStatus').query('select')
+        const result = await nSQL('PartnerStatus').query('select')
             .orm([{
                 key: 'companies',
             }])
             .orderBy({ priority: 'asc' })
             .exec();
         console.log(result);
-        for (let status of result) {
+        for (const status of result) {
             console.log(status);
-            for (let company of status.companies) {
-                company['picture'] = (await nSQL('Picture').query('select').where(["id", "=", company.picture]).exec())[0];
+            for (const company of status.companies) {
+                company.picture = (await nSQL('Picture')
+                    .query('select').where(['id', '=', company.picture]).exec())[0];
             }
         }
         return result;

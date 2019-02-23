@@ -14,6 +14,7 @@
     "cordova-serve-ios": "vue-cli-service cordova-serve-ios"
   },
   "dependencies": {
+    "@babel/polyfill": "^7.2.5",
     "@mdi/font": "^3.2.89",
     "@nano-sql/core": "^2.1.8",
     "@types/node": "^10.12.14",

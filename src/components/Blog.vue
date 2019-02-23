@@ -4,31 +4,30 @@
 
 <script>
     import NewsList from './Elements/NewsList';
-    import {NewsService} from "../services/NewsService";
+    import {NewsService} from '../services/NewsService';
     export default {
-        name: "Blog",
+        name: 'Blog',
         components: {
-            NewsList
+            NewsList,
         },
-        data(){
+        data() {
             return {
                 newses: [],
             };
         },
-        created()
-        {
+        created() {
             this.getNewses();
         },
-        methods:{
-            getNewses(){
+        methods: {
+            getNewses() {
                 const newsService = new NewsService();
-                newsService.getNewses().then((res)=>{
+                newsService.getNewses().then((res) => {
                     console.log(res);
                     this.newses = res;
                 });
-            }
-        }
-    }
+            },
+        },
+    };
 </script>
 
 <style scoped>

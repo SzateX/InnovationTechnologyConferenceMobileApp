@@ -1,58 +1,58 @@
-import Home from './components/Home';
-import Agenda from './components/Agenda';
-import Blog from './components/Blog';
-import Partners from './components/Partners';
-import Place from './components/Place';
-import NewsDetail from './components/NewsDetail';
+import Home from "./components/Home";
+import Agenda from "./components/Agenda";
+import Blog from "./components/Blog";
+import Partners from "./components/Partners";
+import Place from "./components/Place";
+import NewsDetail from "./components/NewsDetail";
 
 export default [
     {
-        name: 'home',
-        path: '/',
         component: Home,
         meta: {
-            title: 'Aktualności'
-        }
+            title: "Aktualności",
+        },
+        name: "home",
+        path: "/",
     },
     {
-        name: 'agenda',
-        path: '/agenda',
         component: Agenda,
         meta: {
-            title: 'Agenda'
-        }
+            title: "Agenda",
+        },
+        name: "agenda",
+        path: "/agenda",
     },
     {
-        name: 'news_detail',
-        path: '/blog/:id',
         component: NewsDetail,
         meta: {
-            title: "Blog"
+            title: "Blog",
         },
+        name: "news_detail",
+        path: "/blog/:id",
         props: true,
     },
     {
-        name: 'blog',
-        path: '/blog',
         component: Blog,
         meta: {
-            title: 'Blog'
-        }
+            title: "Blog",
+        },
+        name: "blog",
+        path: "/blog",
     },
     {
-        name: 'partners',
-        path: '/partners',
         component: Partners,
         meta: {
-            title: 'Partnerzy'
-        }
+            title: "Partnerzy",
+        },
+        name: "partners",
+        path: "/partners",
     },
     {
-        name: 'place',
-        path: '/place',
         component: Place,
         meta: {
-            title: 'Miejsce'
-        }
+            title: "Miejsce",
+        },
+        name: "place",
+        path: "/place",
     },
 ];

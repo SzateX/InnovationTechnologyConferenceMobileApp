@@ -1,3 +1,4 @@
+import '@babel/polyfill';
 import '@mdi/font/css/materialdesignicons.css';
 import Vue from 'vue';
 import VueRouter from 'vue-router';
@@ -14,7 +15,6 @@ import VueMapbox from 'vue-mapbox';
 import Mapbox from 'mapbox-gl';
 // @ts-ignore
 import VueMarkdown from 'vue-markdown';
-import 'leaflet/dist/leaflet.css';
 import routes from './routes';
 Vue.config.productionTip = false;
 Vue.use(Vuetify, {
@@ -27,6 +27,7 @@ const router = new VueRouter({
     routes,
 });
 document.addEventListener('deviceready', () => {
+    console.log('A jestem tutaj');
     nSQL('Change')
         .model([
         { key: 'id', type: 'int', props: ['pk'] },

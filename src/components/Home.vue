@@ -12,61 +12,59 @@
 
 <script>
     import {LectureService} from '../services/LectureService';
-    import {NewsService} from "../services/NewsService";
-    import LectureList from "./Elements/LectureList";
-    import Logo from "./Elements/Logo"
-    import NewsList from "./Elements/NewsList"
-    import {nSQL} from "nano-sql";
+    import {NewsService} from '../services/NewsService';
+    import LectureList from './Elements/LectureList';
+    import Logo from './Elements/Logo';
+    import NewsList from './Elements/NewsList';
+    import {nSQL} from 'nano-sql';
     export default {
-        name: "Home",
+        name: 'Home',
         components: {
-          LectureList, Logo, NewsList
+          LectureList, Logo, NewsList,
         },
-        data(){
+        data() {
             return {
                 lectures: [],
                 newses: [],
             };
         },
-        created()
-        {
-            console.log("HOME");
+        created() {
+            console.log('HOME');
             this.getLectures();
             this.getNewses();
             nSQL()
-            .observable(() => nSQL("Lecture").query("select").emit())
+            .observable(() => nSQL('Lecture').query('select').emit())
             .filter((rows, idx) => rows.length > 0)
             .subscribe((rows, event) => {
-                console.log("EVENT od LECTURE");
+                console.log('EVENT od LECTURE');
                 this.getLectures();
             });
 
             nSQL()
-                .observable(() => nSQL("News").query("select").emit())
+                .observable(() => nSQL('News').query('select').emit())
                 .filter((rows, idx) => rows.length > 0)
                 .subscribe((rows, event) => {
-                    console.log("EVENT od NEWS");
+                    console.log('EVENT od NEWS');
                     this.getNewses();
                 });
         },
-        methods:
-            {
-                getLectures(){
+        methods: {
+                getLectures() {
                     const lectureService = new LectureService();
-                    lectureService.getLecturesAfterDateHomePage(new Date()).then((res)=>{
+                    lectureService.getLecturesAfterDateHomePage(new Date()).then((res) => {
                         console.log(res);
                         this.lectures = res;
                     });
                 },
-                getNewses(){
+                getNewses() {
                     const newsService = new NewsService();
-                    newsService.getNewsesForHomePage(new Date()).then((res)=>{
+                    newsService.getNewsesForHomePage(new Date()).then((res) => {
                         console.log(res);
                         this.newses = res;
                     });
-                }
-            }
-    }
+                },
+            },
+    };
 </script>
 
 <style scoped>

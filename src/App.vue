@@ -95,76 +95,90 @@
 </template>
 
 <script>
+    import '@babel/polyfill';
 import {RestService} from './services/RestService';
 import {ChangeService} from './services/ChangeService';
 
 export default {
   name: 'App',
   components: {},
-  data () {
+  data() {
     return {
       drawer: false,
         loaded: false,
         timerId: null,
-    }
+    };
   },
   created() {
       const restService = new RestService();
       const changeService = new ChangeService();
 
+      const self = this;
+
       if (window.plugins) {
           window.plugins.OneSignal
-              .startInit("7352b8f7-e82c-449e-b402-a760d22871ef")
+              .startInit('7352b8f7-e82c-449e-b402-a760d22871ef')
               .inFocusDisplaying(window.plugins.OneSignal.OSInFocusDisplayOption.Notification)
               .endInit();
       }
 
-      document.addEventListener("offline", function(){
-          alert("Brak połączenia. Nie wykorzystujesz pełnej funkcjonalności aplikacji.");
+      document.addEventListener('offline', function() {
+          alert('Brak połączenia. Nie wykorzystujesz pełnej funkcjonalności aplikacji.');
           clearInterval(this.timerId);
           timerId = null;
       }, false);
 
-      document.addEventListener("online", function () {
-          changeService.getLastChangeId().then((lastId)=>{
-              restService.getDataFromApi(lastId).then((objects)=> {
+      document.addEventListener('online', function() {
+          changeService.getLastChangeId().then((lastId) => {
+              restService.getDataFromApi(lastId).then((objects) => {
                   changeService.parseChangesFromJsonArray(objects).then(() => {
                       this.loaded = true;
-                      this.timerId = setInterval(function () {
+                      this.timerId = setInterval(() => {
                           changeService.getLastChangeId().then((lastId) => {
                               restService.getDataFromApi(lastId).then((objects) => {
                                   changeService.parseChangesFromJsonArray(objects).then(() => {
-                                  })})});
+                                  });
+                              });
+                          });
                       }, 30000);
-                  })
-              })
+                  });
+              });
           });
       }, false);
 
-      let networkState = navigator['connection'].type;
-      if(networkState)
-      {
-          if(networkState !== 'none')
-          {
-              changeService.getLastChangeId().then((lastId)=>{
-                  restService.getDataFromApi(lastId).then((objects)=> {
+      const networkState = navigator['connection'].type;
+      if (networkState) {
+          if (networkState !== 'none') {
+              changeService.getLastChangeId().then((lastId) => {
+                  restService.getDataFromApi(lastId).then((objects) => {
                       changeService.parseChangesFromJsonArray(objects).then(() => {
                           this.loaded = true;
-                          this.timerId = setInterval(function () {
+                          this.timerId = setInterval(() => {
                               changeService.getLastChangeId().then((lastId) => {
                                   restService.getDataFromApi(lastId).then((objects) => {
-                                      changeService.parseChangesFromJsonArray(objects).then(() => {
-                                      })})});
+                                      changeService.parseChangesFromJsonArray(objects).then(() => {});
+                                  });
+                              });
                           }, 30000);
-                      })
-                  })
+                      }).catch((e) => {
+                          alert(e);
+                          self.loaded = true;
+                      });
+                  }).catch((e) => {
+                      alert(e);
+                      self.loaded = true;
+                  });
+              }).catch((e) => {
+                  alert(e);
+                  self.loaded = true;
               });
               return;
           }
       }
-      alert("Brak połączenia. Nie wykorzystujesz pełnej funkcjonalności aplikacji.");
-  }
-}
+      alert('Brak połączenia. Nie wykorzystujesz pełnej funkcjonalności aplikacji.');
+      this.loaded = true;
+  },
+};
 </script>
 
 <style>

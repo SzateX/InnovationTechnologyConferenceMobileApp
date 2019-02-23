@@ -1,37 +1,35 @@
 <template>
     <div>
-    <div v-for="s in statuses">
-        <partner-list :partner-status="s.name" :partners="s.companies"></partner-list>
+    <div v-for='s in statuses'>
+        <partner-list :partner-status='s.name' :partners='s.companies'></partner-list>
     </div>
     </div>
 </template>
 
 <script>
     import PartnerList from './Elements/PartnerList';
-    import {PartnerStatusService} from "../services/PartnerStatusService";
+    import {PartnerStatusService} from '../services/PartnerStatusService';
     export default {
-        name: "Partners",
+        name: 'Partners',
         components: {PartnerList},
-        created()
-        {
+        created() {
             this.getPartners();
         },
-        data()
-        {
+        data() {
             return {
-                statuses: []
-            }
+                statuses: [],
+            };
         },
-        methods:{
-            getPartners(){
+        methods: {
+            getPartners() {
                 const partnerStatusService = new PartnerStatusService();
-                partnerStatusService.getStatuses().then((res)=>{
+                partnerStatusService.getStatuses().then((res) => {
                     console.log(res);
                     this.statuses = res;
                 });
-            }
-        }
-    }
+            },
+        },
+    };
 
 </script>
 
