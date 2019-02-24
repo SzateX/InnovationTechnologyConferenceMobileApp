@@ -2,7 +2,7 @@
     <div>
         <div v-if="news.picture !== undefined">
         <v-img
-                :src="`http://192.168.1.4:5000${news.picture.source}`"
+                :src="`http://int.pti.org.pl${news.picture.source}`"
         ></v-img>
         </div>
         <h1 v-if="news.title !== undefined" style="text-align: center">

@@ -28,7 +28,7 @@
         computed: {
             imgUrl() {
                 if (this.news.picture) {
-                    return 'http://192.168.1.16:5000' + this.news.picture.source;
+                    return 'http://int.pti.org.pl:5000' + this.news.picture.source;
                 }
                 return undefined;
             },

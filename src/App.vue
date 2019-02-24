@@ -90,7 +90,14 @@
       </v-footer>
   </v-app>
     <div v-else>
-        Ładowanie danych...
+        <div class="logo-container">
+            <v-img
+                    :src="require('../public/img/logo_for_web.png')"
+                    class="my-3"
+                    contain
+            ></v-img>
+            Synchronizacja danych...
+        </div>
     </div>
 </template>
 
@@ -161,15 +168,15 @@ export default {
                               });
                           }, 30000);
                       }).catch((e) => {
-                          alert(e);
+                          alert("Problem z pobraniem danych. Aplikacja może zawierać nieaktualne dane. Błąd (0x0004)");
                           self.loaded = true;
                       });
                   }).catch((e) => {
-                      alert(e);
+                      alert("Problem z pobraniem danych. Aplikacja może zawierać nieaktualne dane. Błąd (0x0003)");
                       self.loaded = true;
                   });
               }).catch((e) => {
-                  alert(e);
+                  alert("Problem z pobraniem danych. Aplikacja może zawierać nieaktualne dane. Błąd (0x0002)");
                   self.loaded = true;
               });
               return;
@@ -188,5 +195,13 @@ export default {
         background-position: center top;
         margin-bottom: 15px;
         height: 100%;
+    }
+    .logo-container{
+        width: 90%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
     }
 </style>
